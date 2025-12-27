@@ -55,4 +55,25 @@ class User extends Authenticatable
             ? asset('uploads/avatars/' . $this->avatar)
             : asset('uploads/avatars/default.png');
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likes');
+    }
+    public function bookmarkedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'bookmarks');
+    }
 }
